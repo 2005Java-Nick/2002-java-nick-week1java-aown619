@@ -1,8 +1,10 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class EvaluationService {
 
@@ -13,13 +15,17 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) {
-		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
-			reversed[j] = string.charAt(i);
-		}
-		return new String(reversed);
-	}
+	public static String reverse(String source){
+        if(source == null || source.isEmpty()){
+            return source;
+        }      
+        String reverse = "";
+        for(int i = source.length() -1; i>=0; i--){
+            reverse = reverse + source.charAt(i);
+        }
+     
+        return reverse;
+    }
 
 	/**
 	 * 2. Convert a phrase to its acronym. Techies love their TLA (Three Letter
@@ -43,61 +49,19 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
-	static class Triangle {
-		private double sideOne;
-		private double sideTwo;
-		private double sideThree;
-
-		public Triangle() {
-			super();
+	public static void triangletype(int a, int b, int c) {
+		if(a==b && b==c) {
+            System.out.println("Equilateral");
+		}	
+		else if(a >= (b+c) || c >= (b+a) || b >= (a+c) )
+		{   System.out.println("Not a triangle");
 		}
-
-		public Triangle(double sideOne, double sideTwo, double sideThree) {
-			this();
-			this.sideOne = sideOne;
-			this.sideTwo = sideTwo;
-			this.sideThree = sideThree;
+		else if ((a==b && b!=c ) || (a!=b && c==a) || (c==b && c!=a))
+		{   System.out.println("Isosceles");
 		}
-
-		public double getSideOne() {
-			return sideOne;
+		else if(a!=b && b!=c && c!=a)
+		{   System.out.println("Scalene");
 		}
-
-		public void setSideOne(double sideOne) {
-			this.sideOne = sideOne;
-		}
-
-		public double getSideTwo() {
-			return sideTwo;
-		}
-
-		public void setSideTwo(double sideTwo) {
-			this.sideTwo = sideTwo;
-		}
-
-		public double getSideThree() {
-			return sideThree;
-		}
-
-		public void setSideThree(double sideThree) {
-			this.sideThree = sideThree;
-		}
-
-		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
-		}
-
-		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
-		}
-
-		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
-		}
-
 	}
 
 	/**
@@ -165,11 +129,32 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+	static void countOccurences(String str)  { 
+		 str = "Table is this Table";
+	    String[] arr1 = str.split(" ");
+	    int count = 0;
+	    for (int i = 0; i < arr1.length; i++) {
+	        count = 0;
+	        for (int j = 0; j < arr1.length; j++) {
+	            String temp = arr1[j];
+	            String temp1 = arr1[i];
+	          if (j < i && temp.contentEquals(temp1)) {
+	                break;
+	            }
+	            if (temp.contentEquals(temp1)) {
+	                count = count + 1;
+	            }
+	            if (j == arr1.length - 1) {
+	                System.out.println(arr1[i] + " is present " + count + " snumber of times");
 
+	            }
+
+	        }
+
+	    
+	} 
+	
+	} 
 	/**
 	 * 7. Implement a binary search algorithm.
 	 * 
@@ -205,28 +190,24 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
-		private List<T> sortedList;
-
-		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
-		}
-
-		public BinarySearch(List<T> sortedList) {
-			super();
-			this.sortedList = sortedList;
-		}
-
-		public List<T> getSortedList() {
-			return sortedList;
-		}
-
-		public void setSortedList(List<T> sortedList) {
-			this.sortedList = sortedList;
-		}
-
-	}
+	public static int BST(
+			  int[] sortedArray, int key, int low, int high) {
+			    int middle = (low + high) / 2;
+			         
+			    if (high < low) {
+			        return -1;
+			    }
+			 
+			    if (key == sortedArray[middle]) {
+			        return middle;
+			    } else if (key < sortedArray[middle]) {
+			        return BST(
+			          sortedArray, key, low, middle - 1);
+			    } else {
+			        return BST(
+			          sortedArray, key, middle + 1, high);
+			    }
+			}
 
 	/**
 	 * 8. Implement a program that translates from English to Pig Latin.
@@ -338,10 +319,25 @@ public class EvaluationService {
 	 * @param i
 	 * @return
 	 */
-	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+	public void calculateNthPrime(int i) {
+		 int num=1, count=0;
+		    Scanner sc = new Scanner(System.in);
+		    System.out.print("Enter a number to find the nth prime number: ");
+		    int n = sc.nextInt(); 
+		    while (count < n){
+		      num=num+1;
+		      for (i = 2; i <= num; i++){
+		        if (num % i == 0) {
+		          break;
+		        }
+		      }
+		      if ( i == num){
+		        count = count+1;
+		      }
+		    }
+		    System.out.println("Value of nth prime is: " + num);
+		  }
+	
 
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
@@ -367,31 +363,13 @@ public class EvaluationService {
 	 * rxpyi ldmul cqfnk hlevi gsvoz abwlt gives thequickbrownfoxjumpsoverthelazydog
 	 *
 	 */
-	static class AtbashCipher {
-
-		/**
-		 * Question 13
-		 * 
-		 * @param string
-		 * @return
-		 */
-		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
-
+	
 		/**
 		 * Question 14
 		 * 
 		 * @param string
 		 * @return
 		 */
-		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
-	}
-
 	/**
 	 * 15. The ISBN-10 verification process is used to validate book identification
 	 * numbers. These normally contain dashes and look like: 3-598-21508-8
@@ -432,10 +410,21 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
-	}
+	public boolean isPangram(String str) {
+			str = str.replaceAll(" ", "");
+			char[] chars = str.toCharArray();
+			Map<Character, Integer> map = new HashMap<Character,Integer>(); 
+			
+			
+			for(char c: chars){
+				if(!map.containsKey(c)) {
+					map.put(c, new Integer(1));
+				} else {
+					map.put(c, map.get(c) + 1);
+				}
+			}
+			return map.size() == 26;
+		}
 
 	/**
 	 * 17. Calculate the moment when someone has lived for 10^9 seconds.
@@ -463,10 +452,12 @@ public class EvaluationService {
 	 * @param set
 	 * @return
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+	public int getSumOfMultiples(int a, int b) {
+		    int c = b / a; 
+		    int sum = c * (c + 1) / 2; 
+		    int ans = a * sum; 
+		    return ans; 
+		}
 
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
